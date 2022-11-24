@@ -3,7 +3,6 @@ const notes = require('./notes');
 
 const addNoteHandler = (request, h) => {
   const { title, tags, body } = request.payload;
- 
   const id = nanoid(16);
   const createdAt = new Date().toISOString();
   const updateAt = createdAt;
@@ -59,14 +58,12 @@ const getNoteByIdHandler = (request, h) => {
     status: 'fail',
     message: 'Catatan tidak ditemukan',
   });
-
   response.code(404);
   return response;
 };
 
 const editNoteByIdHandler = (request, h) => {
   const { id } = request.params;
-
   const { title, tags, body } = request.payload;
   const updateAt = new Date().toISOString();
 
@@ -95,7 +92,7 @@ const editNoteByIdHandler = (request, h) => {
   });
   response.code(404);
   return response;
-}
+};
 
 const deleteNoteByIdHandler = (request, h) => {
   const { id } = request.params;
@@ -116,7 +113,9 @@ const deleteNoteByIdHandler = (request, h) => {
     status: 'fail',
     message: 'Catatan gagal dihapus. Id tidak ditemukan',
   });
-}
+  response.code(404);
+  return response;
+};
 
 module.exports = {
   addNoteHandler, 
